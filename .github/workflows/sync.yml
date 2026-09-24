@@ -28,8 +28,8 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python sync.py
         env:
-          UNTIS_SERVER: DEIN_SERVER.webuntis.com   # from your Untis login URL
-          UNTIS_SCHOOL: dein_schulname             # value after ?school=
+          UNTIS_SERVER: kas-bc.de   # from your Untis login URL
+          UNTIS_SCHOOL: kas-bc             # value after ?school=
           UNTIS_USERNAME: ${{ secrets.UNTIS_USERNAME }}
           UNTIS_PASSWORD: ${{ secrets.UNTIS_PASSWORD }}
           UNTIS_CLASS: ${{ secrets.UNTIS_CLASS }}
