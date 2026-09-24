@@ -1,0 +1,39 @@
+name: Untis Debug
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'klassen = list class names, raw = teacher test, dry-run = preview events'
+        type: choice
+        options: [klassen, raw, dry-run]
+        default: klassen
+
+permissions:
+  contents: read
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run
+        env:
+          UNTIS_SERVER: kas-bc.webuntis.com
+          UNTIS_SCHOOL: kas-bc
+          UNTIS_USERNAME: ${{ secrets.UNTIS_USERNAME }}
+          UNTIS_PASSWORD: ${{ secrets.UNTIS_PASSWORD }}
+          UNTIS_CLASS: ${{ secrets.UNTIS_CLASS }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          if [ "$MODE" = "klassen" ]; then
+            python klassen.py
+          else
+            python sync.py --"$MODE"
+          fi
