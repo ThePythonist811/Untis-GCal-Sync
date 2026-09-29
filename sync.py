@@ -38,12 +38,13 @@ def untis_login():
 
 
 def fetch_raw(s):
-    """Raw JSON-RPC getTimetable. Requesting *Fields makes Untis return names inline,
-    which avoids the getTeachers lookup that python-webuntis does internally."""
+    """Raw JSON-RPC getTimetable for the logged-in student (personal timetable,
+    not the whole class), with *Fields so names come back inline."""
     today = dt.date.today()
-    klasse = s.klassen().filter(name=os.environ["UNTIS_CLASS"])[0]
+    person_type = s.login_result["personType"]  # 5 = student
+    person_id = s.login_result["personId"]
     return s._request("getTimetable", {"options": {
-        "element": {"id": klasse.id, "type": 1},
+        "element": {"id": person_id, "type": person_type},
         "startDate": int(today.strftime("%Y%m%d")),
         "endDate": int((today + dt.timedelta(days=DAYS)).strftime("%Y%m%d")),
         "showInfo": True,
