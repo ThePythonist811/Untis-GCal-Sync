@@ -25,8 +25,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Run
         env:
-          UNTIS_SERVER: kas-bc.webuntis.com
-          UNTIS_SCHOOL: kas-bc
+          UNTIS_SERVER: ${{ secrets.UNTIS_SERVER }}
+          UNTIS_SCHOOL: ${{ secrets.UNTIS_SCHOOL }}
           UNTIS_USERNAME: ${{ secrets.UNTIS_USERNAME }}
           UNTIS_PASSWORD: ${{ secrets.UNTIS_PASSWORD }}
           UNTIS_CLASS: ${{ secrets.UNTIS_CLASS }}

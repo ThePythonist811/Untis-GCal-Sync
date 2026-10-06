@@ -17,8 +17,8 @@ import webuntis
 
 TZ = "Europe/Berlin"
 DAYS = 14
-SERVER = os.environ.get("UNTIS_SERVER", "kas-bc.webuntis.com")
-SCHOOL = os.environ.get("UNTIS_SCHOOL", "kas-bc")
+SERVER = os.environ["UNTIS_SERVER"]
+SCHOOL = os.environ["UNTIS_SCHOOL"]
 
 
 def h(text):
